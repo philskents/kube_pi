@@ -1,5 +1,9 @@
 ---
 
+- name: run prerequisites
+  include: 'prereqs.yml'
+  tags: run_prerequisites 
+
 - name: install docker
   include: 'install_docker.yml'
   tags: install_docker

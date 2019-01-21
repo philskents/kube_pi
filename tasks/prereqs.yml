@@ -16,3 +16,32 @@
   shell: dphys-swapfile swapoff && dphys-swapfile uninstall && update-rc.d dphys-swapfile remove
   ignore_errors: True
   become: yes
+
+  - name: Install apt-transport-https
+  apt:
+    name: apt-transport-https
+    state: latest
+  become: yes
+
+- name: Add Google Cloud Repo Key
+  shell: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+  args:
+    warn: no
+
+- name: Add Kubernetes to Available apt Sources
+  template:
+    src: kubernetes.list
+    dest: /etc/apt/sources.list.d/kubernetes.list
+    owner: root
+    group: root
+    
+- name: apt-get update
+  apt:
+    update_cache: yes
+    autoclean: yes
+    autoremove: yes
+    cache_valid_time: 86400
+
+- name: apt-get upgrade
+  apt:
+    upgrade: full

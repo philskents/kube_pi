@@ -19,14 +19,6 @@
   when: docker_installed.changed
   become: yes
 
-
-- name: Pass bridged IPv4 traffic to iptables' chains
-  sysctl:
-    name: net.bridge.bridge-nf-call-iptables
-    value: 1
-    state: present
-  become: yes
-
 - name: Install k8s {{ kubernetes_package_version }} Y'all
   apt:
     name: "{{ item }}={{ kubernetes_package_version }}"

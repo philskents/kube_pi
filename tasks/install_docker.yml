@@ -12,10 +12,12 @@
   script: "files/get-docker.sh {{ docker_ce_version }}"
   when: docker_there.stat.exists == False
   register: docker_installed
+  become: yes
 
 - name: Lock docker version to {{ docker_ce_version}}
   command: /usr/bin/apt-mark hold docker-ce
   when: docker_installed.changed
+  become: yes
 
 
 - name: Pass bridged IPv4 traffic to iptables' chains
@@ -23,6 +25,7 @@
     name: net.bridge.bridge-nf-call-iptables
     value: 1
     state: present
+  become: yes
 
 - name: Install k8s {{ kubernetes_package_version }} Y'all
   apt:
@@ -33,3 +36,4 @@
     - kubelet
     - kubeadm
     - kubectl
+  become: yes 

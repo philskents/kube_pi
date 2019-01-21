@@ -10,7 +10,9 @@
   register: cmdline
   tags:
     - boot
+  become: yes
 
 - name: Disable Swap
   shell: dphys-swapfile swapoff && dphys-swapfile uninstall && update-rc.d dphys-swapfile remove
   ignore_errors: True
+  become: yes

@@ -27,6 +27,7 @@
   shell: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   args:
     warn: no
+  become: yes
 
 - name: Add Kubernetes to Available apt Sources
   template:
@@ -34,14 +35,17 @@
     dest: /etc/apt/sources.list.d/kubernetes.list
     owner: root
     group: root
-    
+  become: yes
+
 - name: apt-get update
   apt:
     update_cache: yes
     autoclean: yes
     autoremove: yes
     cache_valid_time: 86400
+  become: yes
 
 - name: apt-get upgrade
   apt:
     upgrade: full
+  become: yes

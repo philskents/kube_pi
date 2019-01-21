@@ -1,0 +1,5 @@
+---
+
+name: install docker
+include: 'install_docker.yml'
+tags: install_docker

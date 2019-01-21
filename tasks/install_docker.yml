@@ -1,0 +1,4 @@
+- name: add docker repo key
+  apt_key:
+    keyserver: https://yum.dockerproject.org/gpg
+    key: 58118E89F3A912897C070ADBF76221572C52609D
